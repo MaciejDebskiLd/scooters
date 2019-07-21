@@ -15,6 +15,7 @@ public class RentScooter {
     private LocalDateTime startDateTime, stopDateTime;
     private long duration;
     private Rates rates;
+    private double cost;
 
     public RentScooter() {
     }
