@@ -86,6 +86,7 @@ public class RentScooter {
         //stawka jest naliczana wg czasu rozpoczęcia wyporzyczenia, wg dnia tygodnia i godziny wypozyczenia.
         DayOfWeek dayOfWeek = startDateTime.getDayOfWeek();
         int startHour = startDateTime.getHour();
+        if(duration > 120) duration = 120;
 
         if(dayOfWeek.equals(DayOfWeek.SATURDAY) || dayOfWeek.equals(DayOfWeek.SUNDAY)) {rates = Rates.WEEKEND;}
         else if(startHour == 8 || startHour == 16 ) {rates = Rates.RUSH_HOUR;}
