@@ -4,8 +4,8 @@ import com.scooter.objects.Scooter;
 import com.scooter.objects.User;
 
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.Objects;
 
 public class RentScooter {
@@ -13,7 +13,7 @@ public class RentScooter {
     private User user;
     private Scooter scooter;
     private LocalDateTime startDateTime, stopDateTime;
-    private Period period;
+    private long duration;
     private Rates rates;
 
     public RentScooter() {
@@ -23,6 +23,14 @@ public class RentScooter {
         this.user = user;
         this.scooter = scooter;
         this.startDateTime = startDateTime;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration() {
+        this.duration = Duration.between(startDateTime, stopDateTime).toMinutes();
     }
 
     public User getUser() {
@@ -57,13 +65,7 @@ public class RentScooter {
         this.stopDateTime = stopDateTime;
     }
 
-    public Period getPeriod() {
-        return period;
-    }
 
-    public void setPeriod(Period period) {
-        this.period = period;
-    }
 
     public Rates getRates() {
         return rates;
@@ -82,13 +84,13 @@ public class RentScooter {
                 Objects.equals(scooter, that.scooter) &&
                 Objects.equals(startDateTime, that.startDateTime) &&
                 Objects.equals(stopDateTime, that.stopDateTime) &&
-                Objects.equals(period, that.period) &&
+                Objects.equals(duration, that.duration) &&
                 rates == that.rates;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, scooter, startDateTime, stopDateTime, period, rates);
+        return Objects.hash(user, scooter, startDateTime, stopDateTime, duration, rates);
     }
 
     @Override
@@ -98,7 +100,7 @@ public class RentScooter {
                 ", scooter=" + scooter +
                 ", startDateTime=" + startDateTime +
                 ", stopDateTime=" + stopDateTime +
-                ", period=" + period +
+                ", period=" + duration +
                 ", rates=" + rates +
                 '}';
     }
