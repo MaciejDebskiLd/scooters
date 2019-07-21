@@ -31,7 +31,7 @@ public class RentScooter {
         return duration;
     }
 
-    public void setDuration() {
+    private void setDuration() {
         this.duration = Duration.between(startDateTime, stopDateTime).toMinutes();
     }
 
@@ -64,7 +64,11 @@ public class RentScooter {
     }
 
     public void setStopDateTime(LocalDateTime stopDateTime) {
+
         this.stopDateTime = stopDateTime;
+        this.setDuration();
+        this.setCost();
+
     }
 
 
@@ -81,9 +85,9 @@ public class RentScooter {
         return cost;
     }
 
-    public void setCost() {
+    private void setCost() {
 
-        //stawka jest naliczana wg czasu rozpoczęcia wyporzyczenia, wg dnia tygodnia i godziny wypozyczenia.
+        //stawka jest naliczana wg czasu rozpoczęcia wypozyczenia, wg dnia tygodnia i godziny wypozyczenia.
         DayOfWeek dayOfWeek = startDateTime.getDayOfWeek();
         int startHour = startDateTime.getHour();
         if(duration > 120) duration = 120;
