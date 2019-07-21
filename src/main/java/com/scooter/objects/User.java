@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class User {
 
+    //To jest nick uzytkownika
     private String nick;
 
     public User() {
