@@ -87,28 +87,30 @@ public class RentScooter {
         DayOfWeek dayOfWeek = startDateTime.getDayOfWeek();
         int startHour = startDateTime.getHour();
 
-        if(dayOfWeek.equals(DayOfWeek.SATURDAY) || dayOfWeek.equals(DayOfWeek.SUNDAY)) rates = Rates.WEEKEND;
-        if(startHour == 8 || startHour == 16 ) rates = Rates.RUSH_HOUR;
-        rates = Rates.WORKDAY;
+        if(dayOfWeek.equals(DayOfWeek.SATURDAY) || dayOfWeek.equals(DayOfWeek.SUNDAY)) {rates = Rates.WEEKEND;}
+        else if(startHour == 8 || startHour == 16 ) {rates = Rates.RUSH_HOUR;}
+        else { rates = Rates.WORKDAY;}
         this.cost = rates.getPricePerMinute() * duration;
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RentScooter that = (RentScooter) o;
-        return Objects.equals(user, that.user) &&
+        return duration == that.duration &&
+                Double.compare(that.cost, cost) == 0 &&
+                Objects.equals(user, that.user) &&
                 Objects.equals(scooter, that.scooter) &&
                 Objects.equals(startDateTime, that.startDateTime) &&
                 Objects.equals(stopDateTime, that.stopDateTime) &&
-                Objects.equals(duration, that.duration) &&
                 rates == that.rates;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, scooter, startDateTime, stopDateTime, duration, rates);
+        return Objects.hash(user, scooter, startDateTime, stopDateTime, duration, rates, cost);
     }
 
     @Override
@@ -118,8 +120,8 @@ public class RentScooter {
                 ", scooter=" + scooter +
                 ", startDateTime=" + startDateTime +
                 ", stopDateTime=" + stopDateTime +
-                ", period=" + duration +
-                ", rates=" + rates +
+                ", duration=" + duration +
+                ", cost=" + cost +
                 '}';
     }
 }
