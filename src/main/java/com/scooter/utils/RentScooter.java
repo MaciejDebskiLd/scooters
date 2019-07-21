@@ -4,6 +4,7 @@ import com.scooter.objects.Scooter;
 import com.scooter.objects.User;
 
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -74,6 +75,22 @@ public class RentScooter {
 
     public void setRates(Rates rates) {
         this.rates = rates;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost() {
+
+        //stawka jest naliczana wg czasu rozpoczęcia wyporzyczenia, wg dnia tygodnia i godziny wypozyczenia.
+        DayOfWeek dayOfWeek = startDateTime.getDayOfWeek();
+        int startHour = startDateTime.getHour();
+
+        if(dayOfWeek.equals(DayOfWeek.SATURDAY) || dayOfWeek.equals(DayOfWeek.SUNDAY)) rates = Rates.WEEKEND;
+        if(startHour == 8 || startHour == 16 ) rates = Rates.RUSH_HOUR;
+        rates = Rates.WORKDAY;
+        this.cost = rates.getPricePerMinute() * duration;
     }
 
     @Override
