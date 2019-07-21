@@ -15,7 +15,10 @@ public class Scooter {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id > 0) this.id = id;
+        else {
+            System.out.println("Id musi być większe od 0");
+        }
     }
 
     @Override
